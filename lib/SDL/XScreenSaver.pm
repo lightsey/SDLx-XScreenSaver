@@ -1,63 +1,39 @@
 package SDL::XScreenSaver;
 
-use 5.010001;
 use strict;
 use warnings;
-use Carp;
-
-require Exporter;
-use AutoLoader;
-
-our @ISA = qw(Exporter);
-
-# Items to export into callers namespace by default. Note: do not export
-# names by default without a very good reason. Use EXPORT_OK instead.
-# Do not simply export all your public functions/methods/constants.
-
-# This allows declaration	use SDL::XScreenSaver ':all';
-# If you do not need this, moving things directly into @EXPORT or @EXPORT_OK
-# will save memory.
-our %EXPORT_TAGS = ( 'all' => [ qw(
-	
-) ] );
-
-our @EXPORT_OK = ( @{ $EXPORT_TAGS{'all'} } );
-
-our @EXPORT = qw(
-	
-);
+use SDL::App ();
 
 our $VERSION = '0.01';
 
-sub AUTOLOAD {
-    # This AUTOLOAD is used to 'autoload' constants from the constant()
-    # XS function.
+require XSLoader;
+XSLoader::load( 'SDL::XScreenSaver', $VERSION );
 
-    my $constname;
-    our $AUTOLOAD;
-    ($constname = $AUTOLOAD) =~ s/.*:://;
-    croak "&SDL::XScreenSaver::constant not defined" if $constname eq 'constant';
-    my ($error, $val) = constant($constname);
-    if ($error) { croak $error; }
-    {
-	no strict 'refs';
-	# Fixed between 5.005_53 and 5.005_61
-#XXX	if ($] >= 5.00561) {
-#XXX	    *$AUTOLOAD = sub () { $val };
-#XXX	}
-#XXX	else {
-	    *$AUTOLOAD = sub { $val };
-#XXX	}
-    }
-    goto &$AUTOLOAD;
+my $app;
+
+sub init {
+
+    # TODO: Detect if window is provided and find dimensions
 }
 
-require XSLoader;
-XSLoader::load('SDL::XScreenSaver', $VERSION);
+sub start {
 
-# Preloaded methods go here.
+    # TODO: Create and return SDL::App object with correct dimensions
+}
 
-# Autoload methods go after =cut, and are processed by the autosplit program.
+sub update {
+    unless ( defined $app ) {
+        die "update() called before start()";
+    }
+
+    # TODO: Flip app surface. poll for exit event
+}
+
+sub dimensions {
+    if ( defined $app ) {
+        return ( $app->width(), $app->height() );
+    }
+}
 
 1;
 __END__

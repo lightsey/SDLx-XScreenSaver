@@ -12,4 +12,5 @@ WriteMakefile(
     ABSTRACT_FROM => 'lib/SDL/XScreenSaver.pm',
     LIBS          => '-lX11',
     LICENSE       => 'perl',
+    PREPREQ_PM    => { 'SDL::App' => '2.2.5' },
 );
