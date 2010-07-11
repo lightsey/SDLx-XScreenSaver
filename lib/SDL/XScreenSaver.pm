@@ -59,6 +59,7 @@ sub start {
             @app_params{ '-width', '-height' } = ( $width, $height );
         }
     }
+    local $ENV{'SDL_WINDOWID'} = $window_id;
     $app   = SDL::App->new(%app_params);
     $event = SDL::Event->new();
     return $app;
