@@ -56,7 +56,7 @@ sub start {
         }
     }
     local $ENV{'SDL_WINDOWID'} = $window_id;
-    $app   = SDL::App->new(%app_params);
+    $app   = SDLx::App->new(%app_params);
     $event = SDL::Event->new();
     return $app;
 }
