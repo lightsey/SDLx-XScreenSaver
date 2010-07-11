@@ -4,12 +4,13 @@
 
 #include <X11/Xlib.h>
 
-MODULE = SDL::XScreenSaver		PACKAGE = SDL::XScreenSaver		
-
 static Display *dpy = 0;
+
+MODULE = SDL::XScreenSaver		PACKAGE = SDL::XScreenSaver		
 
 void
 xss_viewport_dimensions(window_id)
+    int window_id
     PPCODE:
         XWindowAttributes xwa;
         if (window_id) {
