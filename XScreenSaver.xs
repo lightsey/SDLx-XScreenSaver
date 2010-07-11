@@ -6,7 +6,7 @@
 
 static Display *dpy = 0;
 
-MODULE = SDL::XScreenSaver		PACKAGE = SDL::XScreenSaver		
+MODULE = SDLx::XScreenSaver		PACKAGE = SDLx::XScreenSaver		
 
 void
 xss_viewport_dimensions(window_id)

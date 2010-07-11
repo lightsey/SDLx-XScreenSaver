@@ -1,6 +1,6 @@
-Revision history for Perl extension SDL::XScreenSaver.
+Revision history for Perl extension SDLx::XScreenSaver.
 
 0.01  Sat Jul 10 22:09:25 2010
 	- original version; created by h2xs 1.23 with options
-		-n SDL::XScreenSaver
+		-n SDLx::XScreenSaver
 

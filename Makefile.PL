@@ -7,10 +7,10 @@ use Devel::CheckLib;
 check_lib_or_exit( lib => ['X11'] );
 
 WriteMakefile(
-    NAME          => 'SDL::XScreenSaver',
-    VERSION_FROM  => 'lib/SDL/XScreenSaver.pm',
-    ABSTRACT_FROM => 'lib/SDL/XScreenSaver.pm',
+    NAME          => 'SDLx::XScreenSaver',
+    VERSION_FROM  => 'lib/SDLx/XScreenSaver.pm',
+    ABSTRACT_FROM => 'lib/SDLx/XScreenSaver.pm',
     LIBS          => '-lX11',
     LICENSE       => 'perl',
-    PREREQ_PM    => { 'SDL::App' => '2.2.5' },
+    PREREQ_PM    => { 'SDL' => '2.501' },
 );

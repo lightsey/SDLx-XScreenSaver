@@ -1,4 +1,4 @@
-package SDL::XScreenSaver;
+package SDLx::XScreenSaver;
 
 use strict;
 use warnings;
@@ -8,7 +8,7 @@ use SDL::Event ();
 our $VERSION = '0.01';
 
 require XSLoader;
-XSLoader::load( 'SDL::XScreenSaver', $VERSION );
+XSLoader::load( 'SDLx::XScreenSaver', $VERSION );
 
 my $app;
 my $window_id;
@@ -88,16 +88,16 @@ __END__
 
 =head1 NAME
 
-SDL::XScreenSaver - Perl extension for blah blah blah
+SDLx::XScreenSaver - Perl extension for blah blah blah
 
 =head1 SYNOPSIS
 
-  use SDL::XScreenSaver;
+  use SDLx::XScreenSaver;
   blah blah blah
 
 =head1 DESCRIPTION
 
-Stub documentation for SDL::XScreenSaver, created by h2xs. It looks like the
+Stub documentation for SDLx::XScreenSaver, created by h2xs. It looks like the
 author of the extension was negligent enough to leave the stub
 unedited.
 
