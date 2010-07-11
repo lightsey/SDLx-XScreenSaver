@@ -99,7 +99,7 @@ If you have a web site set up for your module, mention it here.
 
 =head1 AUTHOR
 
-John Lightsey, E<lt>jd@E<gt>
+John Lightsey, E<lt>john@nixnuts.netE<gt>
 
 =head1 COPYRIGHT AND LICENSE
 
