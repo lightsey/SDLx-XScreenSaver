@@ -2,8 +2,9 @@ package SDLx::XScreenSaver;
 
 use strict;
 use warnings;
-use SDL::App   ();
-use SDL::Event ();
+use SDLx::App   ();
+use SDL::Event  ();
+use SDL::Events ();
 
 our $VERSION = '0.01';
 
@@ -16,9 +17,9 @@ my $event;
 
 sub init {
 
+    # This is pretty much identical to the logic in OpenGL::XScreenSaver
+
     # parse and remove XScreenSaver specific arguments.
-    # stop at the first unknown argument (XScreenSaver will pass its own always
-    # first)
     while (@ARGV) {
         if ( $ARGV[0] eq "-window-id" ) {
             $window_id = $ARGV[1];
@@ -37,21 +38,16 @@ sub init {
     }
 
     # if no window ID has been found yet, check out the environment.
-    # XScreenSaver sometimes dumps the window ID there
     if ( !$window_id and $ENV{XSCREENSAVER_WINDOW} ) {
         $window_id = $ENV{XSCREENSAVER_WINDOW};
         $window_id = oct($window_id) if ( $window_id =~ /^0/ );
     }
 
-    # if still no window then it seems we have to create one ourselves.
-    # leave the window ID set to 0, start() will detect this and create its
-    # own window.
-    # return the information to the caller because the user might decide she
-    # wants it to work in XScreenSaver only, not standalone.
     return $window_id ? 1 : 0;
 }
 
 sub start {
+    # Create and return the SDLx::App object
     my %app_params = @_;
     if ($window_id) {
         my ( $width, $height ) = xss_viewport_dimensions($window_id);
@@ -66,11 +62,12 @@ sub start {
 }
 
 sub update {
+    # flip SDLx::App and poll for exit events
     unless ( defined $app ) {
         die "update() called before start()";
     }
     $app->sync();
-    $event->poll();
+    SDL::Events::poll_event($event);
     if ( $event->type() == SDL::Event::SDL_QUIT ) {
         exit;
     }
