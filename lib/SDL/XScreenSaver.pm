@@ -2,7 +2,8 @@ package SDL::XScreenSaver;
 
 use strict;
 use warnings;
-use SDL::App ();
+use SDL::App   ();
+use SDL::Event ();
 
 our $VERSION = '0.01';
 
@@ -10,23 +11,68 @@ require XSLoader;
 XSLoader::load( 'SDL::XScreenSaver', $VERSION );
 
 my $app;
+my $window_id;
+my $event;
 
 sub init {
 
-    # TODO: Detect if window is provided and find dimensions
+    # parse and remove XScreenSaver specific arguments.
+    # stop at the first unknown argument (XScreenSaver will pass its own always
+    # first)
+    while (@ARGV) {
+        if ( $ARGV[0] eq "-window-id" ) {
+            $window_id = $ARGV[1];
+            $window_id = oct($window_id) if ( $window_id =~ /^0/ );
+            splice( @ARGV, 0, 2 );
+        }
+        elsif ( $ARGV[0] eq "-root" || $ARGV[0] eq "-mono" || $ARGV[0] eq "-install" ) {
+            shift(@ARGV);
+        }
+        elsif ( $ARGV[0] eq "-visual" ) {
+            splice( @ARGV, 0, 2 );
+        }
+        else {
+            last;
+        }
+    }
+
+    # if no window ID has been found yet, check out the environment.
+    # XScreenSaver sometimes dumps the window ID there
+    if ( !$window_id and $ENV{XSCREENSAVER_WINDOW} ) {
+        $window_id = $ENV{XSCREENSAVER_WINDOW};
+        $window_id = oct($window_id) if ( $window_id =~ /^0/ );
+    }
+
+    # if still no window then it seems we have to create one ourselves.
+    # leave the window ID set to 0, start() will detect this and create its
+    # own window.
+    # return the information to the caller because the user might decide she
+    # wants it to work in XScreenSaver only, not standalone.
+    return $window_id ? 1 : 0;
 }
 
 sub start {
-
-    # TODO: Create and return SDL::App object with correct dimensions
+    my %app_params = @_;
+    if ($window_id) {
+        my ( $width, $height ) = xss_viewport_dimensions($window_id);
+        if ( $width && $height ) {
+            @app_params{ '-width', '-height' } = ( $width, $height );
+        }
+    }
+    $app   = SDL::App->new(%app_params);
+    $event = SDL::Event->new();
+    return $app;
 }
 
 sub update {
     unless ( defined $app ) {
         die "update() called before start()";
     }
-
-    # TODO: Flip app surface. poll for exit event
+    $app->sync();
+    $event->poll();
+    if ( $event->type() == SDL::Event::SDL_QUIT ) {
+        exit;
+    }
 }
 
 sub dimensions {
