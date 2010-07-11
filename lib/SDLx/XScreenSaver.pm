@@ -47,6 +47,7 @@ sub init {
 }
 
 sub start {
+
     # Create and return the SDLx::App object
     my %app_params = @_;
     if ($window_id) {
@@ -62,13 +63,14 @@ sub start {
 }
 
 sub update {
+
     # flip SDLx::App and poll for exit events
     unless ( defined $app ) {
         die "update() called before start()";
     }
     $app->sync();
     SDL::Events::pump_events();
-    while ( SDL::Events::poll_event($event)) {
+    while ( SDL::Events::poll_event($event) ) {
         if ( $event->type() == SDL::Event::SDL_QUIT ) {
             exit;
         }
@@ -87,37 +89,51 @@ __END__
 
 =head1 NAME
 
-SDLx::XScreenSaver - Perl extension for blah blah blah
+SDLx::XScreenSaver - prepare environment for writing SDL based XScreenSaver hacks
 
 =head1 SYNOPSIS
 
   use SDLx::XScreenSaver;
-  blah blah blah
+
+  SDLx::XScreenSaver::init();
+  # GetOptions(...); # parse your own options, if any
+
+  my $app = SDLx::XScreenSaver::start();
+
+  while (1) {
+     # draw your scene here
+     SDLx::XScreenSaver::update();
+  }
+
 
 =head1 DESCRIPTION
 
-Stub documentation for SDLx::XScreenSaver, created by h2xs. It looks like the
-author of the extension was negligent enough to leave the stub
-unedited.
+This module provides a framework to write SDL XScreenSaver hacks in Perl.
+It provides the same basic interface as OpenGL::XScreenSaver.
 
-Blah blah blah.
+=head2 Description of functions
 
-=head2 EXPORT
+The B<init()> function will return a true value if a window to draw on has been
+found, and a false value if a window will have to be created. This value can
+be ignored unless you want special behavior when the screenhack is
+executed outside of XScreenSaver.
 
-None by default.
+The B<start()> function will create a SDLx::App object bound to the window ID
+provided by XScreenSaver with the correct width and height.  Any parameters
+supplied to start() will be passed through the SDLx::App->new().  The return
+value is the SDLx::App object.
 
+The B<update()> function should be called when you finish drawing a frame.
+It will sync the SDLx::App object and poll for exit events.
 
+The B<dimensions()> function returns a list with the width and the height of
+the currently used window.
 
 =head1 SEE ALSO
 
-Mention other useful documentation such as the documentation of
-related modules or operating system documentation (such as man pages
-in UNIX), or any relevant external documentation such as RFCs or
-standards.
-
-If you have a mailing list set up for your module, mention it here.
-
-If you have a web site set up for your module, mention it here.
+L<SDL>
+L<SDLx::App>
+L<OpenGL::XScreenSaver>
 
 =head1 AUTHOR
 
