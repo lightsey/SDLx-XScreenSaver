@@ -54,8 +54,8 @@ sub start {
         if ( $width && $height ) {
             @app_params{ '-width', '-height' } = ( $width, $height );
         }
+        $ENV{'SDL_WINDOWID'} = $window_id;
     }
-    local $ENV{'SDL_WINDOWID'} = $window_id;
     $app   = SDLx::App->new(%app_params);
     $event = SDL::Event->new();
     return $app;
@@ -67,15 +67,17 @@ sub update {
         die "update() called before start()";
     }
     $app->sync();
-    SDL::Events::poll_event($event);
-    if ( $event->type() == SDL::Event::SDL_QUIT ) {
-        exit;
+    SDL::Events::pump_events();
+    while ( SDL::Events::poll_event($event)) {
+        if ( $event->type() == SDL::Event::SDL_QUIT ) {
+            exit;
+        }
     }
 }
 
 sub dimensions {
     if ( defined $app ) {
-        return ( $app->width(), $app->height() );
+        return ( $app->w(), $app->h() );
     }
 }
 
