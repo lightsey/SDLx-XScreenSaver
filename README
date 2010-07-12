@@ -1,16 +1,8 @@
-SDL-XScreenSaver version 0.01
+SDLx-XScreenSaver
 =============================
 
-The README is used to introduce the module and provide instructions on
-how to install the module, any machine dependencies it may have (for
-example C compilers and installed libraries) and any other information
-that should be provided before the module is installed.
-
-A README file is required for CPAN modules since CPAN extracts the
-README file from a module distribution so that people browsing the
-archive can use it get an idea of the modules uses. It is usually a
-good idea to provide version information here so that people can
-decide whether fixes for the module are worth downloading.
+This module provides a framework for creating SDL XScreenSaver hacks.
+It follows the same interface as OpenGL::XScreenSaver.
 
 INSTALLATION
 
@@ -23,13 +15,16 @@ To install this module type the following:
 
 DEPENDENCIES
 
-This module requires these other modules and libraries:
+This module links to libX11 to determine the size of the XScreenSaver
+provided window.
 
-  blah blah blah
+The following additional Perl modules are required:
+
+SDLx::App
+SDL::Event
+SDL::Events
 
 COPYRIGHT AND LICENCE
-
-Put the correct copyright and licence information here.
 
 Copyright (C) 2010 by John Lightsey <john@nixnuts.net>
 
