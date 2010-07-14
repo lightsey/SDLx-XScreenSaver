@@ -23,6 +23,7 @@ The following additional Perl modules are required:
 SDLx::App
 SDL::Event
 SDL::Events
+SDL::Cursor
 
 COPYRIGHT AND LICENCE
 

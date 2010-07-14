@@ -5,6 +5,7 @@ use warnings;
 use SDLx::App   ();
 use SDL::Event  ();
 use SDL::Events ();
+use SDL::Mouse  ();
 
 our $VERSION = '0.01';
 
@@ -59,6 +60,7 @@ sub start {
     }
     $app   = SDLx::App->new(%app_params);
     $event = SDL::Event->new();
+    SDL::Mouse::show_cursor(0);
     return $app;
 }
 
