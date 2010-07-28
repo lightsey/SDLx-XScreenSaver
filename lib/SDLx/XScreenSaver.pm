@@ -13,8 +13,12 @@ require XSLoader;
 XSLoader::load( 'SDLx::XScreenSaver', $VERSION );
 
 my $app;
-my $window_id;
+my $window_id = 0;
 my $event;
+
+# for tests
+sub _window_id { return $window_id; }
+sub _reset_wid { $window_id = 0; }
 
 sub init {
 
