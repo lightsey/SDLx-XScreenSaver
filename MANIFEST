@@ -4,5 +4,6 @@ Makefile.PL
 MANIFEST
 README
 XScreenSaver.xs
-t/SDLx-XScreenSaver.t
+t/00_useok.t
+t/01_window_id.t
 lib/SDLx/XScreenSaver.pm
