@@ -23,3 +23,14 @@ xss_viewport_dimensions(window_id)
                 XPUSHs(sv_2mortal(newSVnv(xwa.height)));
             }
         }
+
+int
+xss_root_window()
+    CODE:
+        if (!dpy) {
+            dpy = XOpenDisplay(0);
+        }
+        RETVAL = DefaultRootWindow(dpy);
+    OUTPUT:
+        RETVAL
+

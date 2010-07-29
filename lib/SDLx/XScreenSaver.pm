@@ -31,7 +31,11 @@ sub init {
             $window_id = oct($window_id) if ( $window_id =~ /^0/ );
             splice( @ARGV, 0, 2 );
         }
-        elsif ( $ARGV[0] eq "-root" || $ARGV[0] eq "-mono" || $ARGV[0] eq "-install" ) {
+        elsif ( $ARGV[0] eq "-root" ) {
+            $window_id = "ROOT";
+            shift(@ARGV);
+        }
+        elsif ( $ARGV[0] eq "-mono" || $ARGV[0] eq "-install" ) {
             shift(@ARGV);
         }
         elsif ( $ARGV[0] eq "-visual" ) {
@@ -55,6 +59,9 @@ sub start {
 
     # Create and return the SDLx::App object
     my %app_params = @_;
+    if ($window_id eq "ROOT") {
+	$window_id = xss_root_window();
+    }
     if ($window_id) {
         my ( $width, $height ) = xss_viewport_dimensions($window_id);
         if ( $width && $height ) {
