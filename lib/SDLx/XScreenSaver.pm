@@ -16,7 +16,7 @@ my $app;
 my $window_id = 0;
 my $event;
 
-# for tests
+# Used in tests
 sub _window_id { return $window_id; }
 sub _reset_wid { $window_id = 0; }
 
@@ -59,8 +59,8 @@ sub start {
 
     # Create and return the SDLx::App object
     my %app_params = @_;
-    if ($window_id eq "ROOT") {
-	$window_id = xss_root_window();
+    if ( $window_id eq "ROOT" ) {
+        $window_id = xss_root_window();
     }
     if ($window_id) {
         my ( $width, $height ) = xss_viewport_dimensions($window_id);
