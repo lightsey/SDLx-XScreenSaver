@@ -27,7 +27,7 @@ SDL::Cursor
 
 COPYRIGHT AND LICENCE
 
-Copyright (C) 2010 by John Lightsey <john@nixnuts.net>
+Copyright (C) 2011 by John Lightsey <john@nixnuts.net>
 
 Portions of the test code borrowed from OpenGL::XScreenSaver are
 Copyright (C) 2010 by Lars Stoltenow

@@ -154,7 +154,7 @@ John Lightsey, E<lt>john@nixnuts.netE<gt>
 
 =head1 COPYRIGHT AND LICENSE
 
-Copyright (C) 2010 by John Lightsey
+Copyright (C) 2011 by John Lightsey
 
 This library is free software; you can redistribute it and/or modify
 it under the same terms as Perl itself, either Perl version 5.10.1 or,
